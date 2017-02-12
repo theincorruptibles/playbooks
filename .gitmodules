@@ -1,0 +1,3 @@
+[submodule "roles_mrgnr"]
+	path = roles_mrgnr
+	url = git@github.com:mrgnr/roles.git

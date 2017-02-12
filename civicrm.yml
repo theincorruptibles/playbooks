@@ -1,0 +1,20 @@
+---
+
+- name: CiviCRM
+  hosts: all
+  become_method: sudo
+  become: yes
+  gather_facts: True
+  roles:
+    - packages
+    - users
+    - ssh
+    - fail2ban
+    - unattended-upgrades
+    - ufw
+    - tor
+    - role: nginx
+      nginx_sites_enabled: []
+    - letsencrypt
+    - nginx
+    - civicrm

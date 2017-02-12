@@ -1,0 +1,6 @@
+HiddenServiceDir /var/lib/tor/ssh/
+HiddenServicePort 22 127.0.0.1:22
+HiddenServiceAuthorizeClient stealth {{ my_onion_ssh_users }}
+
+HiddenServiceDir /var/lib/tor/nginx/
+HiddenServicePort 80 127.0.0.1:8080

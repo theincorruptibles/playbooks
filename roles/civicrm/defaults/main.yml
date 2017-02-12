@@ -1,0 +1,16 @@
+---
+
+civicrm_db_name: "civicrm"
+civicrm_db_user: "civicrm"
+civicrm_db_password: !!null
+civicrm_db_host: "localhost"
+civicrm_drupal_db_name: "drupal"
+civicrm_drupal_db_user: "drupal"
+civicrm_drupal_db_password: !!null
+civicrm_drupal_project_name: "drupal"
+civicrm_drupal_user: "admin"
+civicrm_drupal_password: !!null
+civicrm_site_url: "https://civicrm.example.org"
+civicrm_www_dir: "/var/www"
+civicrm_module_url: "https://download.civicrm.org/civicrm-4.7.15-drupal.tar.gz"
+civicrm_drush_url: "https://raw.githubusercontent.com/civicrm/civicrm-drupal/7.x-master/drush/civicrm.drush.inc"
