@@ -103,3 +103,17 @@
     chdir="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}"
     creates="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}/sites/all/modules/civicrm"
   tags: ['civicrm']
+
+- name: Copy mysql backup script
+  template: src=mysql-backup.sh dest=/usr/local/bin/mysql-backup.sh owner=root group=root mode=0700
+  tags: ['civicrm', 'civicrm:backups']
+
+- name: Create cron job for MySQL backups
+  cron: >
+    name="Backup MySQL"
+    job="/usr/local/bin/mysql-backup.sh"
+    cron_file=backup_mysql
+    minute="0"
+    hour="*/6"
+    user=root
+  tags: ['civicrm', 'civicrm:backups']
