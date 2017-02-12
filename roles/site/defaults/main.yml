@@ -1,0 +1,5 @@
+---
+
+site_git_repo_url: "git://github.com/theincorruptibles/site.git"
+site_git_repo_version: "master"
+site_git_repo_dir: "/var/www/theincorruptibles"

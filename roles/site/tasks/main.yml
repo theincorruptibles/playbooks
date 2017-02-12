@@ -1,0 +1,18 @@
+---
+
+- name: Clone site repository
+  git: >
+    repo={{ site_git_repo_url }}
+    version={{ site_git_repo_version }}
+    dest={{ site_git_repo_dir }}
+    force=yes
+  tags: ['site']
+
+- name: Create cron job to update site
+  cron: >
+    name="Update site"
+    job="cd {{ site_git_repo_dir }} && git fetch && git pull"
+    cron_file="update_site"
+    minute="*/5"
+    user=root
+  tags: ['site']
