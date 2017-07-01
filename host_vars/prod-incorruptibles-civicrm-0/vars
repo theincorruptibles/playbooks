@@ -1,0 +1,63 @@
+---
+
+packages_remove:
+  - whoopsie
+packages_purge: yes
+packages_autoremove: yes
+packages_install:
+  - htop
+  - nload
+  - tree
+  - vim
+  - vnstat
+
+users_create: "{{ secret_users_create }}"
+
+ssh_pubkeys: "{{ secret_ssh_pubkeys }}"
+ssh_password_auth: "no"
+ssh_authentication_methods: "publickey"
+ssh_allow_users: "{{ secret_ssh_allow_users }}"
+
+ufw_open_ports: [80, 443]
+ufw_limited_ports: [22]
+
+letsencrypt_domains:
+  - "theincorruptibles.us -d www.theincorruptibles.us -d civicrm-wp.theincorruptibles.us"
+
+#letsencrypt_domains:
+#  - "civicrm-test.mrgnr.io"
+#  - "theincorruptibles.mrgnr.io"
+#  - "mail.theincorruptibles.us"
+#  - "test-civicrm.theincorruptibles.us"
+#  - "civicrm-wp.theincorruptibles.us"
+#  - "theincorruptibles.us"
+
+nginx_sites_available:
+  - "templates/nginx/civicrm"
+  - "templates/nginx/theincorruptibles"
+nginx_sites_enabled:
+  - "civicrm"
+  - "theincorruptibles"
+
+tor_torrc: "tor_hidden_service"
+
+civicrm_wordpress_db_name: "wordpress"
+civicrm_wordpress_db_user: "wordpress"
+civicrm_wordpress_db_password: "{{ secret_civicrm_wordpress_db_password }}"
+
+civicrm_db_password: "{{ secret_civicrm_db_password }}"
+civicrm_drupal_db_password: "{{ secret_civicrm_drupal_db_password }}"
+civicrm_drupal_user: "{{ secret_civicrm_drupal_user }}"
+civicrm_drupal_password: "{{ secret_civicrm_drupal_password }}"
+civicrm_www_dir: "/var/www/html"
+civicrm_drupal_project_name: "civicrm"
+civicrm_site_url: "https://theincorruptibles.us"
+
+# civicrm wordpress
+civicrm_db_name: "civicrm-wp"
+civicrm_db_user: "civicrm-wp"
+civicrm_db_password: "{{ secret_civicrm_db_password }}"
+
+my_civicrm_domain: "theincorruptibles.us"
+my_incorruptibles_domain: "theincorruptibles.us"
+my_onion_ssh_users: "{{ secret_my_onion_ssh_users }}"

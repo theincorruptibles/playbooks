@@ -1,0 +1,39 @@
+---
+
+packages_remove:
+  - whoopsie
+packages_purge: yes
+packages_autoremove: yes
+packages_install:
+  - htop
+  - nload
+  - tree
+  - vim
+  - vnstat
+
+users_create: "{{ secret_users_create }}"
+
+ssh_pubkeys: "{{ secret_ssh_pubkeys }}"
+ssh_password_auth: "no"
+ssh_authentication_methods: "publickey"
+ssh_allow_users: "{{ secret_ssh_allow_users }}"
+
+ufw_open_ports: [80, 443]
+ufw_limited_ports: [22]
+
+tor_torrc: "tor_hidden_service"
+
+rocket_chat_version: "0.55.1"
+rocket_chat_tarball_sha256sum: "b48c3551785891e29f2ebadb835ec5704a0f6be36334cab6666db3477cf76b8b"
+rocket_chat_service_host: "chat.theincorruptibles.us"
+rocket_chat_nginx_pfs_key_numbits: 4096
+rocket_chat_ssl_cert_path: "/etc/letsencrypt/live/chat.theincorruptibles.us/fullchain.pem"
+rocket_chat_ssl_key_path: "/etc/letsencrypt/live/chat.theincorruptibles.us/privkey.pem"
+
+rocket_chat_ssl_generate_certs: no
+rocket_chat_automatic_upgrades: true
+
+letsencrypt_domains:
+  - "chat.theincorruptibles.us"
+
+my_onion_ssh_users: "{{ secret_my_onion_ssh_users }}"
