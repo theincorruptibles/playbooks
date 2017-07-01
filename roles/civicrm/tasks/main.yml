@@ -1,5 +1,10 @@
 ---
 
+# Caution: This role is incomplete and possibly destructive. It's probably a
+# bad idea to run it on a production machine in its current form. Before
+# attempting to run this role, you should probably make a backup of the MySQL
+# database and/or take a snapshot of the machine.
+
 # https://www.rosehosting.com/blog/how-to-install-lemp-and-run-drupal-on-ubuntu-16-04/
 
 - name: Install system dependencies
