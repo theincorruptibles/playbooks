@@ -1,0 +1,31 @@
+---
+
+- name: Create wordpress database
+  mysql_db: name="{{ civicrm_wordpress_db_name }}"
+  tags: ['civicrm', 'civicrm:wordpress']
+
+- name: Create wordpress database user
+  mysql_user: >
+    name="{{ civicrm_wordpress_db_user }}"
+    password="{{ civicrm_wordpress_db_password }}"
+    priv="{{ civicrm_wordpress_db_name }}.*:ALL"
+  tags: ['civicrm', 'civicrm:wordpress']
+
+- name: Create civicrm database
+  mysql_db: name="{{ civicrm_db_name }}"
+  tags: ['civicrm', 'civicrm:wordpress']
+
+- name: Create civicrm database user
+  mysql_user: >
+    name="{{ civicrm_db_user }}"
+    password="{{ civicrm_db_password }}"
+    priv="{{ civicrm_db_name }}.*:ALL"
+  tags: ['civicrm', 'civicrm:wordpress']
+
+# Instal wp CLI
+# wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/wp-cli.pgp
+# gpg --import <public_key>
+# gpg --verify wp-cli-1.1.0.phar.gpg
+# wget https://github.com/wp-cli/wp-cli/releases/download/v1.1.0/wp-cli-1.1.0.phar
+# wget https://github.com/wp-cli/wp-cli/releases/download/v1.1.0/wp-cli-1.1.0.phar.gpg
+# wget https://github.com/wp-cli/wp-cli/releases/download/v1.1.0/wp-cli-1.1.0.phar.sha512

@@ -1,0 +1,63 @@
+---
+
+- name: Create drupal database
+  mysql_db: name="{{ civicrm_drupal_db_name }}"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Create drupal database user
+  mysql_user: >
+    name="{{ civicrm_drupal_db_user }}"
+    password="{{ civicrm_drupal_db_password }}"
+    priv="{{ civicrm_drupal_db_name }}.*:ALL"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Install drupal
+  shell: >
+    drush dl drupal --drupal-project-rename="{{ civicrm_drupal_project_name }}"
+    chdir="{{ civicrm_www_dir }}"
+    creates="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Configure drupal
+  shell: >
+    drush site-install standard -y
+    --db-url="mysql://{{ civicrm_drupal_db_user }}:{{ civicrm_drupal_db_password }}@localhost/{{ civicrm_drupal_db_name }}"
+    --site-name="{{ civicrm_drupal_project_name }}"
+    --account-name="{{ civicrm_drupal_user }}"
+    --account-pass="{{ civicrm_drupal_password }}"
+    chdir="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}"
+    creates="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}/sites/default/settings.php"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Download civicrm
+  get_url: >
+    url="{{ civicrm_module_url }}"
+    dest="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}/sites/all/modules/civicrm.tar.gz"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Download civicrm drush file
+  get_url: >
+    url="{{ civicrm_drush_url }}"
+    dest="~/.drush/civicrm.drush.inc"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Clear drush cache
+  shell: drush cache-clear drush
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Set permissions on drupal installation
+  file: >
+    path="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}"
+    recurse=yes
+    owner="www-data"
+    group="www-data"
+  tags: ['civicrm', 'civicrm:drupal']
+
+- name: Install civicrm
+  shell: >
+    drush civicrm-install --dbuser="{{ civicrm_db_user }}" --dbpass="{{ civicrm_db_password }}"
+    --dbhost="{{ civicrm_db_host }}" --dbname="{{ civicrm_db_name }}"
+    --site_url="{{ civicrm_site_url }}" --destination=sites/all/modules
+    chdir="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}"
+    creates="{{ civicrm_www_dir }}/{{ civicrm_drupal_project_name }}/sites/all/modules/civicrm"
+  tags: ['civicrm', 'civicrm:drupal']
