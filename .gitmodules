@@ -1,3 +1,6 @@
 [submodule "roles_mrgnr"]
 	path = roles_mrgnr
 	url = git@github.com:mrgnr/roles.git
+[submodule "roles/rocket_chat"]
+	path = roles/rocket_chat
+	url = git@github.com:RocketChat/Rocket.Chat.Ansible.git

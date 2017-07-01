@@ -1,7 +1,7 @@
 ---
 
-- name: CiviCRM
-  hosts: civicrm
+- name: rocketchat
+  hosts: rocketchat
   become_method: sudo
   become: yes
   gather_facts: True
@@ -13,9 +13,5 @@
     - unattended-upgrades
     - ufw
     - tor
-    - role: nginx
-      nginx_sites_enabled: []
+    - {role: rocket_chat, tags: rocket_chat}
     - letsencrypt
-    - nginx
-    - civicrm
-    - site
